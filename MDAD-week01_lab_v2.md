@@ -1053,10 +1053,10 @@ class ProfilePage extends StatelessWidget {
 ```
 
 **TODO สำหรับนักศึกษา:**
-- [ ] เปลี่ยนชื่อและรหัสนักศึกษาให้เป็นของตัวเอง
-- [ ] เปลี่ยนข้อมูลในแถวข้อมูลให้เป็นของตัวเอง
-- [ ] เพิ่ม Row ข้อมูลเพิ่มเติมอีก 2 แถว
-- [ ] ลองเปลี่ยนสี Theme จาก `Colors.teal` เป็นสีอื่น
+- [x] เปลี่ยนชื่อและรหัสนักศึกษาให้เป็นของตัวเอง
+- [x] เปลี่ยนข้อมูลในแถวข้อมูลให้เป็นของตัวเอง
+- [x] เพิ่ม Row ข้อมูลเพิ่มเติมอีก 2 แถว
+- [x] ลองเปลี่ยนสี Theme จาก `Colors.teal` เป็นสีอื่น
 
 ---
 
@@ -1427,11 +1427,15 @@ Dart Version: ______________________
 Android SDK Version: _______________
 ```
 
+![output-flutter-doctor](../MDAD-Week1-2026-LabSheet1/image/output-flutter-doctor.png)
+
 ### 3.2 Screenshot ของ Flutter App
 
 ```
 [แนบ Screenshot ของ Profile Card App ที่สร้าง]
 ```
+
+![output-flutter-doctor](../MDAD-Week1-2026-LabSheet1/image/website-homepage.png)
 
 **Widget Tree ที่วาด:**
 
@@ -1439,34 +1443,73 @@ Android SDK Version: _______________
 (วาด Widget Tree ของแอปที่สร้างด้วยมือ)
 
 MaterialApp
-└── ?
-    └── ?
-        └── ...
+└── ProfilePage (StatelessWidget)
+    └── Scaffold
+        ├── AppBar
+        │   └── Text ("โปรไฟล์ของฉัน")
+        └── body: Padding
+            └── Column
+                ├── SizedBox
+                ├── CircleAvatar
+                │   └── Icon (person)
+                ├── SizedBox
+                ├── Text (ชื่อ)
+                ├── SizedBox
+                ├── Text (รหัสนักศึกษา)
+                ├── SizedBox
+                ├── Card
+                │   └── Padding
+                │       └── Column
+                │           ├── _buildInfoRow (คณะ)
+                │           ├── Divider
+                │           ├── _buildInfoRow (วิชาที่ชอบ)
+                │           ├── Divider
+                │           ├── _buildInfoRow (เป้าหมาย)
+                │           ├── Divider
+                │           ├── _buildInfoRow (Framework)
+                │           ├── Divider
+                │           └── _buildInfoRow (สนใจเพิ่มเติม)
+                ├── SizedBox
+                └── ElevatedButton.icon ("ทดลอง AI Chat")
+                    └── onPressed → Navigator.push → AiChatPage
 ```
 
 ### 3.3 การเปรียบเทียบ Hot Reload vs Hot Restart
 
 | รายการ | Hot Reload (r) | Hot Restart (R) |
 |---|---|---|
-| ความเร็ว | | |
-| State ถูก Reset? | | |
-| ใช้เมื่อไหร่ | | |
+| ความเร็ว | เร็วมาก (เสี้ยววินาที) — inject โค้ดใหม่เข้า Dart VM ที่รันอยู่ | ช้ากว่า (หลักวินาที) — compile ใหม่และรีสตาร์ท Dart VM ทั้งหมด |
+| State ถูก Reset? | ไม่ — ตัวแปร State (เช่น `_counter`, ข้อความที่พิมพ์ค้างไว้) ยังอยู่เหมือนเดิม | ใช่ — State ทั้งหมดถูกล้างกลับไปค่าเริ่มต้น เหมือนเปิดแอปใหม่ |
+| ใช้เมื่อไหร่ | แก้ไข UI, สี, ข้อความ, Layout เล็กน้อยที่ไม่กระทบโครงสร้าง State/Class | เพิ่ม/แก้ไข Class ใหม่, แก้ `initState()`, เปลี่ยนโครงสร้าง State, หรือเมื่อ Hot Reload ไม่ทำงานตามคาด |
 
 ### 3.4 ผลการทดลอง Prompt Engineering
 
 **Prompt แบบ Simple:**
 ```
-(วาง Prompt ที่ใช้)
+อธิบายแนวคิดของ Flutter Framework ให้นักศึกษาปี 2 เข้าใจง่ายๆ ภายใน 5 ประโยค
 ```
+
+![output-flutter-doctor](../MDAD-Week1-2026-LabSheet1/image/prompt-2.png)
 
 **Prompt แบบ Detailed:**
 ```
-(วาง Prompt ที่ใช้)
+คุณเป็น Flutter Developer ผู้เชี่ยวชาญ
+
+สร้าง Flutter Widget ชื่อ WeatherCard โดย:
+1. รับ parameters: city (String), temperature (double), condition (String), humidity (int)
+2. แสดง UI สวยงามด้วย Card Widget
+3. ใช้ Icons.wb_sunny สำหรับ "sunny", Icons.cloud สำหรับ "cloudy", Icons.water_drop สำหรับ "rainy"
+4. ใช้ Color scheme สีฟ้า-ขาว
+5. ขนาดอุณหภูมิต้องใหญ่และชัดเจน
+
+ให้โค้ดที่สมบูรณ์และใช้งานได้เลย ไม่ต้อง Comment อธิบาย
 ```
+
+![output-flutter-doctor](../MDAD-Week1-2026-LabSheet1/image/prompt-3.png)
 
 **ความแตกต่างของผลลัพธ์:**
 ```
-(บันทึกสิ่งที่สังเกต)
+ให้ผลลัพท์ที่ต้องการเป้น code .dark เหมือนกัน แต่มีความละเอียดที่ต่างกัน
 ```
 
 ### 3.5 Screenshot ของ AI Chat App
@@ -1474,6 +1517,8 @@ MaterialApp
 ```
 [แนบ Screenshot ของ Gemini AI Chat ที่ทำงานได้]
 ```
+
+![output-flutter-doctor](../MDAD-Week1-2026-LabSheet1/image/prompt-1.png)
 
 ---
 
@@ -1594,7 +1639,7 @@ week01-flutter-intro-XXXXXXXX/
 - [x] Profile Card แสดงข้อมูลของตัวเอง
 - [x] AI Chat คุยกับ Gemini ได้จริง
 - [x] API Key ไม่ถูก Commit ลง Git (ตรวจสอบ `.gitignore`)
-- [] ตอบคำถามท้ายบทครบทุกข้อ
+- [x] ตอบคำถามท้ายบทครบทุกข้อ
 - [ ] Push ขึ้น GitHub แล้ว
 
 ---
